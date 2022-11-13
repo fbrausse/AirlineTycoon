@@ -8,13 +8,13 @@
  *
  */
 
-#include "RoomsPlugin.h"
+#include "rooms-plugin/RoomsPlugin.h"
 
 #include <string>
 
 
 #include "BitStream.h"
-#include "RoomsErrorCodes.h"
+#include "rooms-plugin/RoomsErrorCodes.h"
 #include "TableSerializer.h"
 #include "RakAssert.h"
 #include "MessageIdentifiers.h"

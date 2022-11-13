@@ -3,8 +3,8 @@
 //============================================================================================
 #include "stdafx.h"
 #include "Editor.h"
-#include "glEditor.h"
-#include "atnet.h"
+#include "gleditor.h"
+#include "AtNet.h"
 #include <string>
 #include <fstream>
 

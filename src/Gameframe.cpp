@@ -5,10 +5,10 @@
 //============================================================================================
 #include "stdafx.h"
 #include "glpause.h"
-#include "synthese.h"
+#include "Synthese.h"
 #include "Intro.h"
 #include "Outro.h"
-#include "NewGamePopup.h"  //Fenster zum Wahl der Gegner und der Spielstärke
+#include "NewgamePopup.h"  //Fenster zum Wahl der Gegner und der Spielstärke
 #include "cd_prot.h"
 #include "AtNet.h"
 

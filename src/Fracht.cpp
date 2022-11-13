@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "Fracht.h"
 #include "glfracht.h"
-#include "atnet.h"
+#include "AtNet.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

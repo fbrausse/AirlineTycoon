@@ -15,12 +15,12 @@ else()
     add_compile_options("-fpermissive")
     add_compile_options("-Wno-conversion-null")
 endif()
-add_compile_options("-m")
+#add_compile_options("-m")
 
 # Add source to this project's executable.
 add_executable (AT
     Buero.cpp
-    City.cpp
+    city.cpp
     DataTabl.cpp
     Route.cpp
     Tips.cpp
@@ -84,7 +84,7 @@ add_executable (AT
     Smackprs.cpp
     Sound.cpp
     Statistk.cpp
-    StdAfx.cpp
+    stdafx.cpp
     Stdraum.cpp
     Synthese.cpp
     Tafel.cpp
@@ -116,7 +116,7 @@ if(MSVC)
 endif()
 
 if(NOT ${CMAKE_VERSION} VERSION_LESS "3.16.0")
-    target_precompile_headers(AT PUBLIC Stdafx.h)
+    target_precompile_headers(AT PUBLIC stdafx.h)
 endif()
 
 target_link_libraries(AT

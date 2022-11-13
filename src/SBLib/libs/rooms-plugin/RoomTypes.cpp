@@ -8,7 +8,7 @@
  *
  */
 
-#include "RoomTypes.h"
+#include "rooms-plugin/RoomTypes.h"
 
 const char *RoomMemberModeToEnum(RoomMemberMode e)
 {

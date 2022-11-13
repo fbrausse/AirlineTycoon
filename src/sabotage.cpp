@@ -5,7 +5,7 @@
 //============================================================================================
 #include "stdafx.h"
 #include "glsabo.h"
-#include "Sabotage.h"
+#include "sabotage.h"
 #include "AtNet.h"
 
 #ifdef _DEBUG

@@ -5,7 +5,7 @@
 //============================================================================================
 #include "stdafx.h"
 #include "glreiseb.h"
-#include "Reise.h"
+#include "reise.h"
 #include "AtNet.h"
 
 #ifdef _DEBUG

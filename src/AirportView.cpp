@@ -6,9 +6,9 @@
 #include "stdafx.h"
 #include "HLine.h"
 #include "AskBrick.h"
-#include "HallDiskMenu.h"
+#include "HalldiskMenu.h"
 #include "Synthese.h"
-#include "Atnet.h"
+#include "AtNet.h"
 
 extern CHLPool HLPool;
 

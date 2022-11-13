@@ -1,7 +1,7 @@
 //============================================================================================
 // PlaneType.cpp : Routinen zum verwalten der PlaneType-Tabelle (Flugzeugtypen):
 //============================================================================================
-#include "Stdafx.h"
+#include "stdafx.h"
 
 static const char FileId[] = "PlnT";
 

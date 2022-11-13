@@ -8,7 +8,7 @@
  *
  */
 
-#include "RoomsContainer.h"
+#include "rooms-plugin/RoomsContainer.h"
 #include "ProfanityFilter.h"
 #include "RakAssert.h"
 #include "GetTime.h"

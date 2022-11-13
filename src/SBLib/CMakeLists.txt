@@ -11,6 +11,13 @@ add_library (SBLib
     source/Network.cpp
     source/Tool2.cpp
     source/NetworkTypes/RAKNetNetwork.cpp
+    source/NetworkTypes/ENetNetwork.cpp
+    libs/rooms-plugin/RoomsContainer.cpp
+    libs/rooms-plugin/RoomsPlugin.cpp
+    libs/rooms-plugin/RoomTypes.cpp
+    libs/rooms-plugin/RoomsErrorCodes.cpp
+    libs/rooms-plugin/ProfanityFilter.cpp
+    libs/rooms-plugin/IntervalTimer.cpp
     )
 
 target_include_directories(SBLib PUBLIC include)

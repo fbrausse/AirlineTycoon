@@ -5,7 +5,7 @@
 //============================================================================================
 #include "stdafx.h"
 #include "glstart.h"
-#include "atnet.h"
+#include "AtNet.h"
 #include "SbLib.h"
 #include "network.h"
 

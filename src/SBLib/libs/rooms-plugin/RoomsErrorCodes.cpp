@@ -8,7 +8,7 @@
  *
  */
 
-#include "RoomsErrorCodes.h"
+#include "rooms-plugin/RoomsErrorCodes.h"
 #include "RakAssert.h"
 
 using namespace RakNet;

@@ -22,17 +22,17 @@
 #include "Makler.h"
 #include "Museum.h"
 #include "Nasa.h"
-#include "NewGamePopup.h"  //Fenster zum Wahl der Gegner und der Spielstärke
+#include "NewgamePopup.h"  //Fenster zum Wahl der Gegner und der Spielstärke
 #include "Outro.h"
 #include "PlanProp.h"
-#include "Reise.h"
+#include "reise.h"
 #include "Ricks.h"
 #include "RouteBox.h"
 #include "Rushmore.h"
-#include "Sabotage.h"
+#include "sabotage.h"
 #include "Statistk.h"
 #include "Tafel.h"
-#include "TitlePopup.h"
+#include "Titlepopup.h"
 #include "WeltAll.h"
 #include "Security.h"
 #include "Werbung.h"
@@ -40,7 +40,7 @@
 #include "Designer.h"
 #include "World.h"
 
-#include "glTitel.h"
+#include "gltitel.h"
 #include "cd_prot.h"
 
 #include "AtNet.h"

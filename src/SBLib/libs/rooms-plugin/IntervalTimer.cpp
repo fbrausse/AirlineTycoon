@@ -8,7 +8,7 @@
  *
  */
 
-#include "IntervalTimer.h"
+#include "rooms-plugin/IntervalTimer.h"
 
 void IntervalTimer::SetPeriod(RakNet::TimeMS period) {basePeriod=period; remaining=0;}
 bool IntervalTimer::UpdateInterval(RakNet::TimeMS elapsed)

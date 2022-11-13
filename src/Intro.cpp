@@ -2,7 +2,7 @@
 // Intro.cpp : Der Render-Intro
 //============================================================================================
 #include "stdafx.h"
-#include "glTitel.h"
+#include "gltitel.h"
 #include "Intro.h"
 #include <smacker.h>
 

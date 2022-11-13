@@ -6,12 +6,14 @@
 #include "stdafx.h"
 #include "glstart.h"
 #include "SecurityManager.h"
-#include "NewGamePopup.h"  //Fenster zum Wahl der Gegner und der Spielstärke
+#include "NewgamePopup.h"  //Fenster zum Wahl der Gegner und der Spielstärke
 #include "cd_prot.h"
 #include "fillfile.h"
-#include "atnet.h"
+#include "AtNet.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+#define _countof(arr)	(sizeof(arr)/sizeof(*(arr)))
 
 #ifdef _DEBUG
 #undef THIS_FILE
