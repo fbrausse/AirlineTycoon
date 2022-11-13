@@ -496,9 +496,16 @@ void InitGlobeMapper (void)
    SBBM TmpBm (10,10);
 
    PALETTE EarthPal;
-   EarthPal.RefreshPalFromLbm((char*)(LPCTSTR)FullFilename ("EarthAll.lbm", GliPath));
+   EarthPal.RefreshPalFrom(
+      (char*)(LPCTSTR)FullFilename ("EarthAll.lbm", GliPath),
+      NULL,
+      (char*)(LPCTSTR)FullFilename ("EarthAll.tga", GliPath));
 
-   TECBM ShadeBm ((char*)(LPCTSTR)FullFilename ("shade.pcx", GliPath), SYSRAMBM);
+   TECBM ShadeBm(
+      NULL,
+      (char*)(LPCTSTR)FullFilename ("shade.pcx", GliPath),
+      (char*)(LPCTSTR)FullFilename ("shade.tga", GliPath),
+      SYSRAMBM);
 
    GlobeMixTab.ReSize (256*64);
 

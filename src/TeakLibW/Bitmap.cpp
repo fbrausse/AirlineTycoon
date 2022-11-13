@@ -8,6 +8,7 @@ const char* ExcReresize         = "Can't reresize TECPRIMARYBM";
 const char* ExcAttachPal        = "Can't attach Palette";
 const char* ExcNotPcx           = "%s is not a valid pcx-file!";
 const char* ExcNotLbm           = "%s is not a valid lbm-file!";
+const char* ExcNotTga           = "%s is not a valid tga-file!";
 const char* ExcPicUnknown       = "%s is not a known picture file!";
 
 XYZ DetectCurrentDisplayResolution()
@@ -33,6 +34,13 @@ TECBM::TECBM(CString const& path, void* flags)
     ReSize(path, flags);
 }
 
+TECBM::TECBM(const char *lbm, const char *pcx, const char *tga, void *flags)
+    : Surface(NULL)
+    , Size(0,0)
+{
+    ReSize(lbm, pcx, tga, flags);
+}
+
 TECBM::~TECBM()
 {
     if (Surface)
@@ -43,6 +51,49 @@ int TECBM::Refresh()
 {
     TeakLibW_Exception(0, 0, ExcNotImplemented);
     return 0;
+}
+
+static SDL_Surface * load_one_of(const char *lbm, const char *pcx, const char *tga)
+{
+    static const struct {
+        decltype(IMG_isLBM) *is;
+        decltype(IMG_LoadLBM_RW) *load;
+        const char *exc;
+    } fmts[3] = {
+        { IMG_isLBM, IMG_LoadLBM_RW, ExcNotLbm },
+        { IMG_isPCX, IMG_LoadPCX_RW, ExcNotPcx },
+        { NULL     , IMG_LoadTGA_RW, ExcNotTga },
+    };
+
+    const char *paths[] = { lbm, pcx, tga };
+
+    int any = -1;
+    for (size_t i=0; i<sizeof(paths)/sizeof(*paths); i++) {
+        if (!paths[i])
+            continue;
+        any = i;
+        SDL_RWops* file = SDL_RWFromFile(paths[i], "rb");
+        if (!file)
+            continue;
+        bool ok = false;
+        SDL_Surface *surface = NULL;
+        if (!fmts[i].is || fmts[i].is(file))
+            surface = fmts[i].load(file);
+        SDL_RWclose(file);
+        if (surface)
+            return surface;
+    }
+    if (any != -1)
+        TeakLibW_Exception(0, 0, fmts[any].exc, paths[any]);
+    return NULL;
+}
+
+void TECBM::ReSize(const char *lbm, const char *pcx, const char *tga, void* flags)
+{
+    if ((Surface = load_one_of(lbm, pcx, tga))) {
+        Size.x = Surface->w;
+        Size.y = Surface->h;
+    }
 }
 
 void TECBM::ReSize(CString const& path, void* flags)
@@ -58,46 +109,13 @@ void TECBM::ReSize(CString const& path, void* flags)
 
 void TECBM::ReSizeLbm(CString const& path, void* flags)
 {
-    SDL_RWops* file = SDL_RWFromFile(path, "rb");
-    if (!file)
-        TeakLibW_Exception(0, 0, ExcPicUnknown, path);
-    if (!IMG_isLBM(file))
-    {
-        SDL_RWclose(file);
-        TeakLibW_Exception(0, 0, ExcNotLbm, path);
-    }
-
-    Surface = IMG_LoadLBM_RW(file);
-    SDL_RWclose(file);
-
-    if (!Surface)
-        TeakLibW_Exception(0, 0, ExcNotLbm, path);
-
-    Size.x = Surface->w;
-    Size.y = Surface->h;
+    ReSize(path, NULL, NULL, flags);
 }
 
 void TECBM::ReSizePcx(CString const& path, void* flags)
 {
-    SDL_RWops* file = SDL_RWFromFile(path, "rb");
-    if (!file)
-        TeakLibW_Exception(0, 0, ExcPicUnknown, path);
-    if (!IMG_isPCX(file))
-    {
-        SDL_RWclose(file);
-        TeakLibW_Exception(0, 0, ExcNotPcx, path);
-    }
-
-    Surface = IMG_LoadPCX_RW(file);
-    SDL_RWclose(file);
-
-    if (!Surface)
-        TeakLibW_Exception(0, 0, ExcNotPcx, path);
-
-    Size.x = Surface->w;
-    Size.y = Surface->h;
+    ReSize(NULL, path, NULL, flags);
 }
-
 
 TECBMKEY::TECBMKEY(TECBM& bm)
     : Surface(bm.Surface)
@@ -131,50 +149,28 @@ PALETTE::PALETTE()
 {
 }
 
+void PALETTE::RefreshPalFrom(const char *lbm, const char *pcx, const char *tga)
+{
+    if (SDL_Surface *surface = load_one_of(lbm, pcx, tga)) {
+        SDL_Palette* palette = surface->format->palette;
+        Pal.ReSize(palette->ncolors);
+        for (int i = 0; i < palette->ncolors; ++i)
+            Pal[i] = (palette->colors)[i];
+        SDL_FreeSurface(surface);
+    }
+}
+
 void PALETTE::RefreshPalFromLbm(CString const& path)
 {
-    SDL_RWops* file = SDL_RWFromFile(path, "rb");
-    if (!file)
-        TeakLibW_Exception(0, 0, ExcPicUnknown, path);
-    if (!IMG_isLBM(file))
-    {
-        SDL_RWclose(file);
-        TeakLibW_Exception(0, 0, ExcNotLbm, path);
-    }
-
-    SDL_Surface* surface = IMG_LoadLBM_RW(file);
-    SDL_RWclose(file);
-
-    if (!surface)
-        TeakLibW_Exception(0, 0, ExcNotLbm, path);
-
-    SDL_Palette* palette = surface->format->palette;
-    Pal.ReSize(palette->ncolors);
-    for (int i = 0; i < palette->ncolors; ++i)
-        Pal[i] = (palette->colors)[i];
-    SDL_FreeSurface(surface);
+    RefreshPalFrom(path, NULL, NULL);
 }
 
 void PALETTE::RefreshPalFromPcx(CString const& path)
 {
-    SDL_RWops* file = SDL_RWFromFile(path, "rb");
-    if (!file)
-        TeakLibW_Exception(0, 0, ExcPicUnknown, path);
-    if (!IMG_isPCX(file))
-    {
-        SDL_RWclose(file);
-        TeakLibW_Exception(0, 0, ExcNotPcx, path);
-    }
+    RefreshPalFrom(NULL, path, NULL);
+}
 
-    SDL_Surface* surface = IMG_LoadPCX_RW(file);
-    SDL_RWclose(file);
-
-    if (!surface)
-        TeakLibW_Exception(0, 0, ExcNotPcx, path);
-
-    SDL_Palette* palette = surface->format->palette;
-    Pal.ReSize(palette->ncolors);
-    for (int i = 0; i < palette->ncolors; ++i)
-        Pal[i] = (palette->colors)[i];
-    SDL_FreeSurface(surface);
+void PALETTE::RefreshPalFromTga(CString const& path)
+{
+    RefreshPalFrom(NULL, NULL, path);
 }

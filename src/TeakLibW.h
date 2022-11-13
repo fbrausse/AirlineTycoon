@@ -699,8 +699,10 @@ public:
     void BlendOut(void) const;
     void RefreshDD(int) const;
     void RefreshDD(SLONG, int) const;
+    void RefreshPalFrom(const char *lbm, const char *pcx, const char *tga);
     void RefreshPalFromLbm(CString const&);
     void RefreshPalFromPcx(CString const&);
+    void RefreshPalFromTga(CString const&);
     void ConvertToBlackWhite(void);
     unsigned char FindColorClosestToRGB(unsigned char, unsigned char, unsigned char) const;
     void RotateArea(SLONG, SLONG);
@@ -767,6 +769,7 @@ class TECBM
 public:
     TECBM(void);
     TECBM(CString const&, void*);
+    TECBM(const char *lbm, const char *pcx, const char *tga, void *flags);
     TECBM(CString const&, SLONG, void*);
     TECBM(SLONG, SLONG, void*);
     TECBM(TXY<SLONG>, void*);
@@ -781,6 +784,7 @@ public:
     static int IsHardwareCritical(void);
     static int IsEitherCritical(void);
     static void SetCriticalMem(SLONG);
+    void ReSize(const char *lbm, const char *pcx, const char *tga, void* flags);
     void ReSize(CString const&, void*);
     void ReSize(CString const&, SLONG, void*);
     void ReSizeLbm(CString const&, void*);
