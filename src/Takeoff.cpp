@@ -587,6 +587,9 @@ BOOL CTakeOffApp::InitInstance(int argc, char* argv[])
 
    Sim.Options.ReadOptions();
 
+   if (!bFullscreen)
+      Sim.Options.OptionFullscreen = 1;
+
    gPhysicalCdRomBitlist.Pump();
 
    DoAppPath();
