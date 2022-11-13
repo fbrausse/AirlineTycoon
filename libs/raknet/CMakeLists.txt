@@ -9,7 +9,7 @@ add_library(raknet SHARED ${ALL_CPP_SRCS} ${ALL_HEADER_SRCS})
 
 target_include_directories(raknet PUBLIC ${PROJECT_SOURCE_DIR}/Include)
 
-set(RAKNET_LIBRARY_LIBS ws2_32.lib)
+#set(RAKNET_LIBRARY_LIBS ws2_32.lib)
 target_link_libraries (raknet ${RAKNET_LIBRARY_LIBS})
 
 IF(WIN32 AND NOT UNIX)

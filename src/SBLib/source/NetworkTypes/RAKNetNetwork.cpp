@@ -10,7 +10,7 @@
 #include "RAKNetRoomCallbacks.hpp"
 
 using namespace RakNet;
-#define AT_Log(a,...) AT_Log_I("RAKNetNetwork", a, __VA_ARGS__)
+#define AT_Log(a,...) AT_Log_I("RAKNetNetwork", a, #__VA_ARGS__)
 
 void SerializePacket(ATPacket* p, BitStream* data) {
     data->Write(p->messageType);
@@ -324,10 +324,13 @@ bool RAKNetNetwork::CreateSession(SBNetworkCreation* create) {
         //allowed flow skip!
     case SBCreationFlags::SBNETWORK_CREATE_NONE:
     default: //No need for a NAT server if the user chose it
-        mMaster->Startup(4, &SocketDescriptor(SERVER_PORT, ""), 1);
+    {
+        SocketDescriptor sockdesc(SERVER_PORT, "");
+        mMaster->Startup(4, &sockdesc, 1);
         AT_Log("CREATE SESSION: DIRECT. Our GUID: '%s' and our SystemAddress: '%s'", mMaster->GetMyGUID().ToString(), mMaster->GetSystemAddressFromGuid(mMaster->GetMyGUID()).ToString());
         mMaster->SetMaximumIncomingConnections(4);
         break;
+    }
     }
 
     return true;
@@ -877,7 +880,7 @@ bool RAKNetNetwork::JoinSession(const SBStr& session, SBStr nickname) {
 
     RAKSessionInfo *info = new RAKSessionInfo();
 
-    strcpy_s(info->sessionName, session.c_str());
+    strcpy(info->sessionName, session.c_str());
     info->address = mRoomCallbacks->joinedRoom.roomDescriptor.roomMemberList[0].guid;
     
     mSessionInfo = info;

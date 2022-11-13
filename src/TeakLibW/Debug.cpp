@@ -36,7 +36,7 @@ HDU::HDU()
         if (strstr(message, "||") == nullptr) {
             const unsigned long long size = strlen(message) + strlen("Misc || ") + 1;
             finalMessage = new char[size]{};
-            sprintf_s(finalMessage, size, "Misc || %s", message);
+            snprintf(finalMessage, size, "Misc || %s", message);
             modified = true;
         }
 
@@ -52,7 +52,7 @@ HDU::HDU()
             delete[] finalMessage;
     };
 
-    SDL_LogSetOutputFunction(func, defaultOut);
+    SDL_LogSetOutputFunction(func, reinterpret_cast<void *>(defaultOut));
 
 }
 
@@ -100,7 +100,7 @@ SLONG TeakLibW_Exception(char* file, SLONG line, const char* format, ...)
     char buffer[128];
     va_list args;
     va_start(args, format);
-    vsprintf_s(buffer, format, args);
+    vsnprintf(buffer, sizeof(buffer), format, args);
     va_end(args);
     //MessageBeep(0);
     //MessageBeep(0x30u);

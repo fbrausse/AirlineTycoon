@@ -29,18 +29,20 @@ extern const char* GetSuffix(const char*);
 #define PRINTF_ATTR(StringIndex, FirstToCheck)
 #endif
 
-inline void V_AT_Log_I(const std::string origin, const std::string format, va_list varargs) SDL_PRINTF_VARARG_FUNC(2) {
+// SDL_PRINTF_VARARG_FUNC(2)
+inline void V_AT_Log_I(const std::string origin, const char *format, va_list varargs) {
     SDL_LogMessageV(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, (origin + " || " + format).c_str(), varargs);
 }
 
-PRINTF_ATTR(2, 3) inline void AT_Log_I(const std::string origin, const std::string format, ...) SDL_PRINTF_VARARG_FUNC(2) {
+SDL_PRINTF_VARARG_FUNC(2)
+PRINTF_ATTR(2, 3) inline void AT_Log_I(const std::string origin, const char *format, ...) {
     va_list argptr;
     va_start(argptr, format);
     SDL_LogMessageV(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, (origin + " || " + format).c_str(), argptr);
     va_end(argptr);
 }
 
-#define AT_Log_Generic(a,...) AT_Log_I("Generic", a, __VA_ARGS__)
+#define AT_Log_Generic(a,...) AT_Log_I("Generic", a, #__VA_ARGS__)
 
 template <typename T>
 inline void Limit(T min, T& value, T max)

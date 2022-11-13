@@ -312,7 +312,7 @@ SDL_Surface* SB_CBitmapCore::GetFlippedSurface() {
         SDL_UnlockSurface(flippedBufferSurface);
     }
 	
-    UINT32 key;
+    Uint32 key;
     if (SDL_GetColorKey(lpDDSurface, &key) == 0)
     {
         SDL_SetColorKey(flippedBufferSurface, true, key);

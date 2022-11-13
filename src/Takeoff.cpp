@@ -50,7 +50,7 @@ extern SBNetwork gNetwork;
 
 #include <fstream>
 #include <filesystem>
-#include <Dbghelp.h>
+// #include <Dbghelp.h>
 
 CHLPool HLPool;
 
@@ -145,7 +145,7 @@ __int64 betaId[3] = { 123456789876543210, 765423432423432676, 432987774377733433
 char *UCharToReadableAnsi( const unsigned char *pData, const unsigned uLen );
 unsigned char *ReadableAnsiToUChar( const char *pData, const unsigned uLen );
 
-
+#if 0
 LONG UnhandledExceptionCallback(
     _EXCEPTION_POINTERS* exceptionInfo) {
 
@@ -163,7 +163,7 @@ LONG UnhandledExceptionCallback(
 	
 	return EXCEPTION_EXECUTE_HANDLER;
 }
-
+#endif
 
 
 #define SCRAMBLE_ADD_XOR 0xa0febff4
@@ -270,9 +270,9 @@ int main(int argc, char* argv[])
    v.muScramble           = 3556112065;
 
    long vv = v.GetValue();
-   
+#if 0
    SetUnhandledExceptionFilter(UnhandledExceptionCallback);
-
+#endif
 	const char* pText = "Hallo, ich bin ein Text";
 
 	// eigentlich wurde UCharToReadableAnsi ja geschaffen um Daten-Streams zu konvertieren, aber man kann es natürlich auch mit einem String machen!

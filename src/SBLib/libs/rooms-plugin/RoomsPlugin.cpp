@@ -24,7 +24,7 @@
 
 using namespace RakNet;
 
-extern void AT_Log_I(const std::string origin, const std::string format, ...);
+extern void AT_Log_I(const std::string origin, const char *format, ...);
 
 #define AT_Log(a,...) AT_Log_I("RAKNetNetwork>Lobby", a, __VA_ARGS__)
 #define printf AT_Log
