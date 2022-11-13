@@ -218,9 +218,9 @@ GameFrame::GameFrame()
 
    if(bFullscreen == false || Sim.Options.OptionFullscreen == 0 || Sim.Options.OptionFullscreen == 2){
        SDL_DisplayMode DM;
-       SDL_GetDesktopDisplayMode(0, &DM);
+       SDL_GetDesktopDisplayMode(0, &DM);/*
        width = DM.w;
-       height = DM.h;
+       height = DM.h;*/
    }
    CRect  rect(0, 0, width, height);
 
